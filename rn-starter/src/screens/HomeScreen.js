@@ -33,6 +33,11 @@ const HomeScreen = ({navigation}) => {
             title="Go to Chameleon Reducer Demo"
             onPress={() => navigation.navigate('ChameleonReducer')}
         />
+
+        <Button
+            title="Go to Password Demo"
+            onPress={() => navigation.navigate('Password')}
+        />
       </View>
   );
 };
