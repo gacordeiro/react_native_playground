@@ -7,6 +7,7 @@ import ImageScreen from './src/screens/ImageScreen';
 import CounterScreen from './src/screens/CounterScreen';
 import ColorsScreen from './src/screens/ColorsScreen';
 import ChameleonScreen from './src/screens/ChameleonScreen';
+import ChameleonReducerScreen from './src/screens/ChameleonReducerScreen';
 
 const navigator = createStackNavigator(
     {
@@ -17,6 +18,7 @@ const navigator = createStackNavigator(
       Counter: CounterScreen,
       Colors: ColorsScreen,
       Chameleon: ChameleonScreen,
+      ChameleonReducer: ChameleonReducerScreen,
     },
     {
       initialRouteName: 'Home',
