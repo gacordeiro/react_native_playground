@@ -9,6 +9,7 @@ import ColorsScreen from './src/screens/ColorsScreen';
 import ChameleonScreen from './src/screens/ChameleonScreen';
 import ChameleonReducerScreen from './src/screens/ChameleonReducerScreen';
 import PasswordScreen from './src/screens/PasswordScreen';
+import BoxScreen from './src/screens/BoxScreen';
 
 const navigator = createStackNavigator(
     {
@@ -21,6 +22,7 @@ const navigator = createStackNavigator(
       Chameleon: ChameleonScreen,
       ChameleonReducer: ChameleonReducerScreen,
       Password: PasswordScreen,
+      Box: BoxScreen,
     },
     {
       initialRouteName: 'Home',
