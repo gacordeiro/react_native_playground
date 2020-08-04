@@ -6,7 +6,7 @@ import yelp from '../api/yelp';
 const SearchScreen = () => {
   const [term, setTerm] = useState('');
   const [results, setResults] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const searchApi = async () => {
     try {
@@ -18,7 +18,7 @@ const SearchScreen = () => {
         },
       });
       setResults(response.data.businesses);
-      setErrorMessage(null);
+      setErrorMessage('');
     } catch (err) {
       console.log(err);
       setErrorMessage('Something went wrong :(');
