@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 
-const ShowResultScreen = () => {
+const ShowResultScreen = ({navigation}) => {
+  const id = navigation.getParam('id');
   return (
       <>
-        <Text>ShowResultScreen</Text>
+        <Text>ShowResultScreen for ${id}</Text>
       </>
   );
 };

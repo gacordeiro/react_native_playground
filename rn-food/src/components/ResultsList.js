@@ -1,5 +1,7 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import ResultDetail from './ResultDetail';
 import {withNavigation} from 'react-navigation';
 
@@ -8,7 +10,7 @@ const ResultsList = ({title, results, navigation}) => {
 
   const onPress = (item) => {
     console.log(`onPress: `, item.name);
-    navigation.navigate('ShowResult');
+    navigation.navigate('ShowResult', {id: item.id});
   };
 
   const renderItem = (item) => {
@@ -19,8 +21,10 @@ const ResultsList = ({title, results, navigation}) => {
     );
   };
 
+  if (results.length === 0) return null;
+
   return (
-      <View style={styles.container}>
+      <>
         <Text style={styles.title}>{title}</Text>
         <FlatList
             horizontal
@@ -29,13 +33,17 @@ const ResultsList = ({title, results, navigation}) => {
             keyExtractor={(results) => results.id}
             renderItem={({item}) => renderItem(item)}
         />
-      </View>
+        <View style={styles.divider}/>
+      </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 8,
+  divider: {
+    height: 1,
+    backgroundColor: '#CCCCCC',
+    marginHorizontal: 16,
+    marginVertical: 8,
   },
 
   title: {
