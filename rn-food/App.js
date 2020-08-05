@@ -7,11 +7,16 @@ import ShowResultScreen from './src/screens/ShowResultScreen';
 
 const navigator = createStackNavigator({
   Search: SearchScreen,
-  ShowResult: ShowResultScreen,
+  ShowResult: {
+    screen: ShowResultScreen,
+    navigationOptions: {
+      title: "Details"
+    }
+  },
 }, {
   initialRouteName: 'Search',
   defaultNavigationOptions: {
-    title: 'Business Search',
+    title: 'Search',
   },
 });
 
