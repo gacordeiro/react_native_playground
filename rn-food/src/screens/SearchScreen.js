@@ -1,39 +1,66 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
+import ResultsList from '../components/ResultsList';
 
 const SearchScreen = () => {
   const [term, setTerm] = useState('');
   const [searchApi, results, errorMessage] = useResults();
 
+  const filterResultByPrice = (price) => {
+    return results.filter(result => {
+      return price === result.price;
+    });
+  };
+
+  const buildBody = () => {
+    return (
+        <ScrollView contentInset={{bottom: 80}}>
+          <ResultsList
+              title="Dirty Cheap ($)"
+              results={filterResultByPrice('$')}/>
+          <View style={styles.divider}/>
+          <ResultsList
+              title="Cost Effective ($$)"
+              results={filterResultByPrice('$$')}/>
+          <View style={styles.divider}/>
+          <ResultsList
+              title="Decent Meal ($$$)"
+              results={filterResultByPrice('$$$')}/>
+          <View style={styles.divider}/>
+          <ResultsList
+              title="Big Spender ($$$$)"
+              results={filterResultByPrice('$$$$')}/>
+        </ScrollView>
+    );
+  };
+
   return (
-      <View>
+      <>
         <SearchBar
             term={term}
             onTermChange={setTerm}
-            onTermSubmit={() => searchApi(term)}
-        />
+            onTermSubmit={() => searchApi(term)}/>
         {errorMessage
             ? <Text style={styles.error}>{errorMessage}</Text>
-            : <Text style={styles.result}>Found {results.length} results</Text>}
-      </View>
+            : buildBody()}
+      </>
   );
 };
 
 const styles = StyleSheet.create({
-  result: {
-    color: 'gray',
-    fontSize: 14,
-    marginTop: 8,
+  divider: {
+    height: 1,
+    backgroundColor: 'gray',
     marginHorizontal: 16,
   },
 
   error: {
     color: 'red',
     fontSize: 14,
-    marginTop: 8,
     marginHorizontal: 16,
+    marginTop: 8,
   },
 });
 

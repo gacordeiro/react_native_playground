@@ -2,7 +2,7 @@ import yelp from '../api/yelp';
 import {useEffect, useState} from 'react';
 
 export default (
-    initialSearch = 'pasta',
+    initialSearch = 'beef',
     location = 'san jose',
     limit = 50
 ) => {
