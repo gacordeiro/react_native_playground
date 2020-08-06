@@ -1,8 +1,8 @@
-import React, {useContext, useLayoutEffect} from 'react';
+import React, {useContext} from 'react';
 import {Button, FlatList, StyleSheet, Text} from 'react-native';
 import BlogContext from '../context/BlogContext';
 
-export default function IndexScreen({navigation}) {
+export default function IndexScreen() {
   const {data, addBlogPost} = useContext(BlogContext);
 
   return (
