@@ -5,6 +5,7 @@ import {StyleSheet} from 'react-native';
 import {Provider} from './src/context/BlogContext';
 import IndexScreen from './src/screens/IndexScreen';
 import ShowScreen from './src/screens/ShowScreen';
+import CreateScreen from './src/screens/CreateScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,11 @@ export default function App() {
                 name="Show"
                 component={ShowScreen}
                 options={({route}) => ({title: route.params.title})}
+            />
+            <Stack.Screen
+                name="Create"
+                component={CreateScreen}
+                options={{title: 'New Post'}}
             />
           </Stack.Navigator>
         </NavigationContainer>

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useLayoutEffect} from 'react';
 import {
   Button, FlatList, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
@@ -8,17 +8,32 @@ import {Feather} from '@expo/vector-icons';
 export default function IndexScreen({navigation}) {
   const {state, addBlogPost, deleteBlogPost} = useContext(Context);
 
-  const itemClicked = (item) => {
-    console.log('itemClicked: ', item);
+  const addClicked = () => {
+    console.log('addClicked');
+    addBlogPost();
+  };
+
+  const createClicked = () => {
+    console.log('createClicked');
+    navigation.navigate('Create');
+  };
+
+  const deleteClicked = (item) => {
+    console.log('deleteClicked: ', item.id);
+    deleteBlogPost(item.id);
+  };
+
+  const showClicked = (item) => {
+    console.log('showClicked: ', item);
     navigation.navigate('Show', {id: item.id, title: `Post #${item.id}`});
   };
 
   const buildIndexPost = (item) => {
     return (
-        <TouchableOpacity onPress={() => itemClicked(item)}>
+        <TouchableOpacity onPress={() => showClicked(item)}>
           <View style={styles.row}>
             <Text style={styles.title}>{item.title}</Text>
-            <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+            <TouchableOpacity onPress={() => deleteClicked(item)}>
               <Feather style={styles.icon} name="trash"/>
             </TouchableOpacity>
           </View>
@@ -26,9 +41,19 @@ export default function IndexScreen({navigation}) {
     );
   };
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+          <TouchableOpacity onPress={createClicked}>
+            <Feather name="plus" style={styles.icon}/>
+          </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
   return (
       <>
-        <Button title="Add Post" onPress={addBlogPost}/>
+        <Button title="Add Post" onPress={addClicked}/>
         <FlatList
             data={state}
             keyExtractor={(post) => post.title}
@@ -43,16 +68,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 16,
-    paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderColor: 'gray',
   },
 
   title: {
     fontSize: 18,
+    paddingHorizontal: 16,
   },
 
   icon: {
     fontSize: 24,
+    paddingHorizontal: 16,
   },
 });
