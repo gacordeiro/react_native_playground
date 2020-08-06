@@ -8,7 +8,7 @@ const blogReducer = (state, action) => {
         ...state,
         {
           id: id,
-          title: `Blog Post #${id}`,
+          title: `Post #${id}`,
         },
       ];
     case 'delete_blogpost':

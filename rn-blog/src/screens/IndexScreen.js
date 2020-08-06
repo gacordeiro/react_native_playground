@@ -5,17 +5,24 @@ import {
 import {Context} from '../context/BlogContext';
 import {Feather} from '@expo/vector-icons';
 
-export default function IndexScreen() {
+export default function IndexScreen({navigation}) {
   const {state, addBlogPost, deleteBlogPost} = useContext(Context);
+
+  const itemClicked = (item) => {
+    console.log('itemClicked: ', item);
+    navigation.navigate('Show', {id: item.id, title: `Post #${item.id}`});
+  };
 
   const buildIndexPost = (item) => {
     return (
-        <View style={styles.row}>
-          <Text style={styles.title}>{item.title}</Text>
-          <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
-            <Feather style={styles.icon} name="trash"/>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => itemClicked(item)}>
+          <View style={styles.row}>
+            <Text style={styles.title}>{item.title}</Text>
+            <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+              <Feather style={styles.icon} name="trash"/>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
     );
   };
 
