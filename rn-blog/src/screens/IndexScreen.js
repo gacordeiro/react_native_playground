@@ -1,16 +1,20 @@
 import React, {useContext} from 'react';
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Button, FlatList, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import {Context} from '../context/BlogContext';
 import {Feather} from '@expo/vector-icons';
 
 export default function IndexScreen() {
-  const {state, addBlogPost} = useContext(Context);
+  const {state, addBlogPost, deleteBlogPost} = useContext(Context);
 
   const buildIndexPost = (item) => {
     return (
         <View style={styles.row}>
           <Text style={styles.title}>{item.title}</Text>
-          <Feather style={styles.icon} name="trash"/>
+          <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+            <Feather style={styles.icon} name="trash"/>
+          </TouchableOpacity>
         </View>
     );
   };
