@@ -1,17 +1,10 @@
 import React, {useContext, useLayoutEffect} from 'react';
-import {
-  Button, FlatList, StyleSheet, Text, TouchableOpacity, View,
-} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Context} from '../context/BlogContext';
 import {Feather} from '@expo/vector-icons';
 
 export default function IndexScreen({navigation}) {
-  const {state, addBlogPost, deleteBlogPost} = useContext(Context);
-
-  const addClicked = () => {
-    console.log('addClicked');
-    addBlogPost();
-  };
+  const {state, deleteBlogPost} = useContext(Context);
 
   const createClicked = () => {
     console.log('createClicked');
@@ -53,7 +46,6 @@ export default function IndexScreen({navigation}) {
 
   return (
       <>
-        <Button title="Add Post" onPress={addClicked}/>
         <FlatList
             data={state}
             keyExtractor={(post) => post.title}

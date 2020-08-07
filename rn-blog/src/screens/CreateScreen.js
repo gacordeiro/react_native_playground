@@ -1,11 +1,18 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Context} from '../context/BlogContext';
-import Button from 'react-native-web';
 
 export default function CreateScreen() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const {addBlogPost} = useContext(Context);
+
+  const addClicked = () => {
+    console.log('addClicked');
+    console.log('title: ', title);
+    console.log('content: ', content);
+    addBlogPost(title, content);
+  };
 
   return (
       <View>
@@ -21,6 +28,7 @@ export default function CreateScreen() {
             value={content}
             onChangeText={(text) => setContent(text)}
         />
+        <Button title='Add Blog Post' onPress={addClicked}/>
       </View>
   );
 };

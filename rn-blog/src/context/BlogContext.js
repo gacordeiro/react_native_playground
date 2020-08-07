@@ -8,7 +8,8 @@ const blogReducer = (state, action) => {
         ...state,
         {
           id: id,
-          title: `Post #${id}`,
+          title: action.payload.title,
+          content: action.payload.content,
         },
       ];
     case 'delete_blogpost':
@@ -18,11 +19,15 @@ const blogReducer = (state, action) => {
   }
 };
 
-const addBlogPost = dispatch =>
-    () => dispatch({type: 'add_blogpost'});
+const addBlogPost = dispatch => (title, content) => dispatch({
+  type: 'add_blogpost',
+  payload: {title, content},
+});
 
-const deleteBlogPost = dispatch =>
-    (id) => dispatch({type: 'delete_blogpost', payload: id});
+const deleteBlogPost = dispatch => (id) => dispatch({
+  type: 'delete_blogpost',
+  payload: id,
+});
 
 export const {Context, Provider} = createDataContext(
     blogReducer,
