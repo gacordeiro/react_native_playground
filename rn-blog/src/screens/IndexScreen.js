@@ -18,7 +18,7 @@ export default function IndexScreen({navigation}) {
 
   const showClicked = (item) => {
     console.log('showClicked: ', item);
-    navigation.navigate('Show', {id: item.id, title: `Post #${item.id}`});
+    navigation.navigate('Show', {id: item.id, title: item.title});
   };
 
   const buildIndexPost = (item) => {

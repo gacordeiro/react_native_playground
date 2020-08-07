@@ -19,10 +19,13 @@ const blogReducer = (state, action) => {
   }
 };
 
-const addBlogPost = dispatch => (title, content) => dispatch({
-  type: 'add_blogpost',
-  payload: {title, content},
-});
+const addBlogPost = dispatch => (title, content, onSuccess) => {
+  dispatch({
+    type: 'add_blogpost',
+    payload: {title, content},
+  });
+  onSuccess();
+}
 
 const deleteBlogPost = dispatch => (id) => dispatch({
   type: 'delete_blogpost',

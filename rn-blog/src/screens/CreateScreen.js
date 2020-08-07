@@ -2,16 +2,18 @@ import React, {useContext, useState} from 'react';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Context} from '../context/BlogContext';
 
-export default function CreateScreen() {
+export default function CreateScreen({navigation}) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const {addBlogPost} = useContext(Context);
+
+  const returnToIndex = () => navigation.goBack();
 
   const addClicked = () => {
     console.log('addClicked');
     console.log('title: ', title);
     console.log('content: ', content);
-    addBlogPost(title, content);
+    addBlogPost(title, content, returnToIndex);
   };
 
   return (
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 4,
-    marginTop: 8,
+    marginVertical: 8,
     marginHorizontal: 16,
     paddingHorizontal: 8,
     paddingVertical: 8,
