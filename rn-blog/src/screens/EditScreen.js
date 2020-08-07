@@ -8,7 +8,7 @@ export default function EditScreen({navigation, route}) {
   const blogPost = state.find((post) => post.id === route.params.id);
   const {editBlogPost} = useContext(Context);
 
-  const returnToIndex = () => navigation.goBack();
+  const returnToIndex = () => navigation.popToTop();
 
   const saveClicked = (title, content) => {
     console.log('saveClicked');

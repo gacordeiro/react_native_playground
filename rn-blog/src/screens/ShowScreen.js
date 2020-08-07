@@ -19,9 +19,7 @@ export default function ShowScreen({navigation, route}) {
             <EvilIcons name="pencil" style={styles.icon}/>
           </TouchableOpacity>
       ),
-    });
-    return navigation.addListener('focus', () => {
-      navigation.setOptions({title: blogPost.title});
+      title: blogPost.title,
     });
   }, [navigation]);
 
