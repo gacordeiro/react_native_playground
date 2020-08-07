@@ -1,10 +1,10 @@
-import React, {useContext, useLayoutEffect} from 'react';
+import React, {useContext, useEffect, useLayoutEffect} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Context} from '../context/BlogContext';
 import {Feather} from '@expo/vector-icons';
 
 export default function IndexScreen({navigation}) {
-  const {state, deleteBlogPost} = useContext(Context);
+  const {state, getBlogPosts, deleteBlogPost} = useContext(Context);
 
   const createClicked = () => {
     console.log('createClicked');
@@ -42,6 +42,8 @@ export default function IndexScreen({navigation}) {
           </TouchableOpacity>
       ),
     });
+    getBlogPosts();
+    return navigation.addListener('focus', getBlogPosts);
   }, [navigation]);
 
   return (

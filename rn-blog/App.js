@@ -23,7 +23,6 @@ export default function App() {
             <Stack.Screen
                 name="Show"
                 component={ShowScreen}
-                options={({route}) => ({title: route.params.title})}
             />
             <Stack.Screen
                 name="Create"

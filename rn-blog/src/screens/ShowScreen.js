@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect} from 'react';
+import React, {useContext, useEffect, useLayoutEffect} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Context} from '../context/BlogContext';
 import {EvilIcons} from '@expo/vector-icons';
@@ -19,6 +19,9 @@ export default function ShowScreen({navigation, route}) {
             <EvilIcons name="pencil" style={styles.icon}/>
           </TouchableOpacity>
       ),
+    });
+    return navigation.addListener('focus', () => {
+      navigation.setOptions({title: blogPost.title});
     });
   }, [navigation]);
 
