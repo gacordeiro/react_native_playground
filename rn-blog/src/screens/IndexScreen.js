@@ -48,7 +48,7 @@ export default function IndexScreen({navigation}) {
       <>
         <FlatList
             data={state}
-            keyExtractor={(post) => post.title}
+            keyExtractor={(post) => `${post.id}`}
             renderItem={({item}) => buildIndexPost(item)}
         />
       </>

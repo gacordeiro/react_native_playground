@@ -6,6 +6,7 @@ import {Provider} from './src/context/BlogContext';
 import IndexScreen from './src/screens/IndexScreen';
 import ShowScreen from './src/screens/ShowScreen';
 import CreateScreen from './src/screens/CreateScreen';
+import EditScreen from './src/screens/EditScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,11 @@ export default function App() {
                 name="Create"
                 component={CreateScreen}
                 options={{title: 'New Post'}}
+            />
+            <Stack.Screen
+                name="Edit"
+                component={EditScreen}
+                options={{title: 'Edit Post'}}
             />
           </Stack.Navigator>
         </NavigationContainer>
