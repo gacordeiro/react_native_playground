@@ -19,15 +19,17 @@ router.post('/signup', async (req, res) => {
 
 router.post('/signin', async (req, res) => {
   const {email, password} = req.body;
-  if (!email || !password) {
-    return res.status(422).send('You must provide email and password!');
-  }
+  if (!email || !password) return res.status(422).send({
+    error: 'You must provide email and password!',
+  });
 
   try {
     const user = await User.findOne({email});
     if (!user) {
       console.log('sign-in User not found');
-      return res.status(404).send('Invalid email or password!');
+      return res.status(404).send({
+        error: 'Invalid email or password!',
+      });
     }
 
     await user.comparePassword(password);
@@ -35,7 +37,9 @@ router.post('/signin', async (req, res) => {
     res.send({token});
   } catch (err) {
     console.log('sign-in error: ', err);
-    return res.status(404).send('Invalid email or password!');
+    return res.status(404).send({
+      error: 'Invalid email or password!',
+    });
   }
 });
 
