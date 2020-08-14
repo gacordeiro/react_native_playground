@@ -9,6 +9,6 @@ export default () => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 48
-  }
+    fontSize: 48,
+  },
 });

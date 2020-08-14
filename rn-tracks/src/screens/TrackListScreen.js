@@ -1,8 +1,7 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
-export default ({navigation}) => {
-  console.log(navigation);
+export default () => {
   return (
       <View>
         <Text style={styles.title}>TrackListScreen</Text>

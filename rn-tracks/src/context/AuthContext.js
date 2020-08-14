@@ -1,38 +1,49 @@
 import createDataContext from './createDataContext';
+import trackerApi from '../api/tracker';
+import {AsyncStorage} from 'react-native';
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case 'signin':
-      return {...state, isSignedIn: true}
-    case 'signout':
-      return {...state, isSignedIn: false}
+    case 'set_error':
+      return {...state, errorMessage: action.payload};
+    case 'set_token':
+      return {...state, token: action.payload, errorMessage: null};
     default:
       return state;
   }
 };
 
-const signup = (dispatch) => ({email, password}) => {
-  //TODO make api request and modify state
-  console.log('signup');
-  dispatch({type: 'signup'});
+async function loginWith(dispatch, token) {
+  await AsyncStorage.setItem('token', token);
+  dispatch({type: 'set_token', payload: token});
+}
+
+const signup = (dispatch) => async ({email, password}) => {
+  try {
+    const response = await trackerApi.post('/signup', {email, password});
+    await loginWith(dispatch, response.data.token);
+  } catch (err) {
+    dispatch({type: 'set_error', payload: 'Unable to sign up'});
+  }
 };
 
-const signin = (dispatch) => ({email, password}) => {
-  //TODO make api request and modify state
-  console.log('signin');
-  dispatch({type: 'signin'});
+const signin = (dispatch) => async ({email, password}) => {
+  try {
+    const response = await trackerApi.post('/signin', {email, password});
+    await loginWith(dispatch, response.data.token);
+  } catch (err) {
+    dispatch({type: 'set_error', payload: 'Unable to sign in'});
+  }
 };
 
 const signout = (dispatch) => () => {
-  //TODO make api request and modify state
-  console.log('signout');
-  dispatch({type: 'signout'});
+  dispatch({type: 'set_token', payload: null});
 };
 
 const init = createDataContext(
     authReducer,
     {signup, signin, signout},
-    {isSignedIn: false},
+    {token: null, errorMessage: ''},
 );
 
 export const AuthContext = init.Context;
