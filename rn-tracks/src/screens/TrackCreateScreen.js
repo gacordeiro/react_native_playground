@@ -1,11 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Text} from 'react-native-elements';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import Map from '../components/Map';
 
 export default () => {
   return (
-      <SafeAreaView>
-        <Text style={styles.title}>TrackCreateScreen</Text>
+      <SafeAreaView forceInset={{top: 'always'}}>
+        <Text h2>TrackCreateScreen</Text>
+        <Map/>
       </SafeAreaView>
   );
 };
