@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import AccountScreen from './src/screens/AccountScreen';
 import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen';
@@ -62,4 +63,12 @@ const App = () => {
 
 const styles = StyleSheet.create({});
 
-export default () => <AuthProvider><App/></AuthProvider>;
+export default () => {
+  return (
+      <AuthProvider>
+        <SafeAreaProvider>
+          <App/>
+        </SafeAreaProvider>
+      </AuthProvider>
+  );
+}
