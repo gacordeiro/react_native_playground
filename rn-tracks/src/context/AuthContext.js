@@ -8,6 +8,8 @@ const authReducer = (state, action) => {
       return {...state, errorMessage: action.payload};
     case 'set_token':
       return {...state, token: action.payload, errorMessage: null};
+    case 'startup':
+      return {...state, isLoading: false, token: action.payload};
     case 'clear_errors':
       return {...state, errorMessage: null};
     default:
@@ -37,7 +39,8 @@ const signin = (dispatch) => async ({email, password}) => await loginWith({
   errorMessage: 'Unable to sign in',
 });
 
-const signout = (dispatch) => () => {
+const signout = (dispatch) => async () => {
+  await AsyncStorage.removeItem('token');
   dispatch({type: 'set_token', payload: null});
 };
 
@@ -45,10 +48,15 @@ const clearErrors = (dispatch) => () => {
   dispatch({type: 'clear_errors'});
 };
 
+const startup = (dispatch) => async () => {
+  const token = await AsyncStorage.getItem('token');
+  dispatch({type: 'startup', payload: token});
+};
+
 const init = createDataContext(
     authReducer,
-    {signup, signin, signout, clearErrors},
-    {token: null, errorMessage: ''},
+    {signup, signin, signout, clearErrors, startup},
+    {isLoading: true, token: null, errorMessage: ''},
 );
 
 export const AuthContext = init.Context;
