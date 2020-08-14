@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import Spacer from './Spacer';
 import {Button, Input, Text} from 'react-native-elements';
+import {NavigationEvents} from '@react-navigation/compat';
+import Spacer from './Spacer';
 import NavLink from './NavLink';
 
 export default ({
   title,
   errorMessage,
+  clearErrors,
   buttonTitle,
   buttonAction,
   linkTitle,
@@ -17,6 +19,7 @@ export default ({
 
   return (
       <View style={styles.container}>
+        <NavigationEvents onWillFocus={clearErrors}/>
         <Spacer>
           <Text h3>{title}</Text>
         </Spacer>
