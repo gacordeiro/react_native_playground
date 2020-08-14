@@ -13,28 +13,27 @@ const authReducer = (state, action) => {
   }
 };
 
-async function loginWith(dispatch, token) {
-  await AsyncStorage.setItem('token', token);
-  dispatch({type: 'set_token', payload: token});
+async function loginWith({dispatch, apiCall, errorMessage}) {
+  try {
+    const response = await apiCall();
+    await AsyncStorage.setItem('token', response.data.token);
+    dispatch({type: 'set_token', payload: response.data.token});
+  } catch (err) {
+    dispatch({type: 'set_error', payload: errorMessage});
+  }
 }
 
-const signup = (dispatch) => async ({email, password}) => {
-  try {
-    const response = await trackerApi.post('/signup', {email, password});
-    await loginWith(dispatch, response.data.token);
-  } catch (err) {
-    dispatch({type: 'set_error', payload: 'Unable to sign up'});
-  }
-};
+const signup = (dispatch) => async ({email, password}) => await loginWith({
+  dispatch,
+  apiCall: () => trackerApi.post('/signup', {email, password}),
+  errorMessage: 'Unable to sign up',
+});
 
-const signin = (dispatch) => async ({email, password}) => {
-  try {
-    const response = await trackerApi.post('/signin', {email, password});
-    await loginWith(dispatch, response.data.token);
-  } catch (err) {
-    dispatch({type: 'set_error', payload: 'Unable to sign in'});
-  }
-};
+const signin = (dispatch) => async ({email, password}) => await loginWith({
+  dispatch,
+  apiCall: () => trackerApi.post('/signin', {email, password}),
+  errorMessage: 'Unable to sign in',
+});
 
 const signout = (dispatch) => () => {
   dispatch({type: 'set_token', payload: null});
